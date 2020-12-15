@@ -9,14 +9,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class SvgController {
 
     @GetMapping("/svg")
@@ -25,17 +24,17 @@ public class SvgController {
     }
 
     @GetMapping("/svg/all")
-    public ResponseEntity<ArrayList<SvgResponseModel>> getSVGAll() {
+    public ResponseEntity<List<SvgResponseModel>> getSVGAll() {
         return SVGServiceImpl.getSVGAll();
     }
 
     @PostMapping("/svg/list")
-    public ResponseEntity<ArrayList<SvgResponseModel>> getSVGs(@RequestBody SvgRequestListModel model) {
+    public ResponseEntity<List<SvgResponseModel>> getSVGs(@RequestBody SvgRequestListModel model) {
         return SVGServiceImpl.getSVGs(model);
     }
 
     @PostMapping("/svg/quantity")
-    public ResponseEntity<ArrayList<SvgResponseModel>> getSVGs(@RequestBody SvgRequestQuantityModel model) {
+    public ResponseEntity<List<SvgResponseModel>> getSVGs(@RequestBody SvgRequestQuantityModel model) {
         return SVGServiceImpl.getSVGs(model);
     }
 

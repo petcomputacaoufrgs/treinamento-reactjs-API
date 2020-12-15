@@ -9,47 +9,42 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SVGServiceImpl {
 
     public static ResponseEntity<SvgResponseModel> getSVG() {
-        return new ResponseEntity<>(new SvgResponseModel(SvgEnum.ORCA.getId(), SvgEnum.ORCA.getValue()), HttpStatus.OK);
+        return new ResponseEntity<>(convertEnumerableToModel(SvgEnum.ORCA), HttpStatus.OK);
     }
 
-    public static ResponseEntity<ArrayList<SvgResponseModel>> getSVGs(SvgRequestListModel model) {
-
+    public static ResponseEntity<List<SvgResponseModel>> getSVGs(SvgRequestListModel model) {
         ArrayList<SvgResponseModel> response = new ArrayList<>();
         ArrayList<Integer> idsList = model.getIds();
 
-        for (SvgEnum enumerable : SvgEnum.values() ) {
+        Arrays.stream(SvgEnum.values()).forEach(enumerable -> {
             Integer enumId = enumerable.getId();
             if(idsList.contains(enumId)) {
-                response.add(new SvgResponseModel(enumId, enumerable.getValue()));
+                response.add(convertEnumerableToModel(enumerable));
             }
-        }
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-    public static ResponseEntity<ArrayList<SvgResponseModel>> getSVGs(SvgRequestQuantityModel model) {
-
-        ArrayList<SvgResponseModel> response = new ArrayList<>();
-
-        SvgEnum[] enumerables =  SvgEnum.values();
-
-        for (int i = 0; i < model.getQuantity(); i++) {
-            response.add(new SvgResponseModel(enumerables[i].getId(), enumerables[i].getValue()));
-        }
+        });
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public static ResponseEntity<ArrayList<SvgResponseModel>> getSVGAll() {
+    public static ResponseEntity<List<SvgResponseModel>> getSVGs(SvgRequestQuantityModel model) {
+        List<SvgResponseModel> response = Arrays.stream(SvgEnum.values()).map(SVGServiceImpl::convertEnumerableToModel).collect(Collectors.toList());
 
-        ArrayList<SvgResponseModel> response = new ArrayList<>();
-
-        for (SvgEnum enumerable : SvgEnum.values() ) {
-            response.add(new SvgResponseModel(enumerable.getId(), enumerable.getValue()));
-        }
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public static ResponseEntity<List<SvgResponseModel>> getSVGAll() {
+        List<SvgResponseModel> response = Arrays.stream(SvgEnum.values()).map(SVGServiceImpl::convertEnumerableToModel).collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    private static SvgResponseModel convertEnumerableToModel(SvgEnum enumerable) {
+        return new SvgResponseModel(enumerable.getId(), enumerable.getName(), enumerable.getValue());
     }
 }

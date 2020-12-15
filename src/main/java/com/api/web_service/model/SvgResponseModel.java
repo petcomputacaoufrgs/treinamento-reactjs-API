@@ -2,7 +2,7 @@ package com.api.web_service.model;
 
 public class SvgResponseModel {
 
-    private final int id;
+    private final Integer id;
     private final String value;
 
     public SvgResponseModel(int id, String value) {

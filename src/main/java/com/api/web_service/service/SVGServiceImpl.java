@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class SVGServiceImpl {
 
@@ -23,7 +22,7 @@ public class SVGServiceImpl {
         ArrayList<Integer> idsList = model.getIds();
 
         for (SvgEnum enumerable : SvgEnum.values() ) {
-            int enumId = enumerable.getId();
+            Integer enumId = enumerable.getId();
             if(idsList.contains(enumId)) {
                 response.add(new SvgResponseModel(enumId, enumerable.getValue()));
             }
@@ -51,7 +50,6 @@ public class SVGServiceImpl {
         for (SvgEnum enumerable : SvgEnum.values() ) {
             response.add(new SvgResponseModel(enumerable.getId(), enumerable.getValue()));
         }
-
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

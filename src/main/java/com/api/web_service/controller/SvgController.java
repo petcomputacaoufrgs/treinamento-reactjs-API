@@ -1,9 +1,13 @@
 package com.api.web_service.controller;
 
+import com.api.web_service.enumerable.SvgEnum;
 import com.api.web_service.model.SvgRequestListModel;
 import com.api.web_service.model.SvgRequestQuantityModel;
 import com.api.web_service.model.SvgResponseModel;
 import com.api.web_service.service.SVGServiceImpl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,5 +37,12 @@ public class SvgController {
     @PostMapping("/svg/quantity")
     public ResponseEntity<ArrayList<SvgResponseModel>> getSVGs(@RequestBody SvgRequestQuantityModel model) {
         return SVGServiceImpl.getSVGs(model);
+    }
+
+    @GetMapping("/svg/string")
+    public static ResponseEntity<String> getSVGAsString() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.valueOf("image/enumerable+xml"));
+        return new ResponseEntity<>(SvgEnum.OWL.getValue(), headers, HttpStatus.OK);
     }
 }

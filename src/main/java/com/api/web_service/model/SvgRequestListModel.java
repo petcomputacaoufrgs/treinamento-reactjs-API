@@ -8,10 +8,6 @@ public class SvgRequestListModel {
 
     public SvgRequestListModel() {}
 
-    public SvgRequestListModel(ArrayList<Integer> ids) {
-        this.ids = ids;
-    }
-
     public ArrayList<Integer> getIds() {
         return ids;
     }

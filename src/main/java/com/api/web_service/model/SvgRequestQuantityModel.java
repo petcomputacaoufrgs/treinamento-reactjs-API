@@ -5,10 +5,6 @@ public class SvgRequestQuantityModel {
 
     public SvgRequestQuantityModel() {}
 
-    public SvgRequestQuantityModel(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public Integer getQuantity() {
         return quantity;
     }

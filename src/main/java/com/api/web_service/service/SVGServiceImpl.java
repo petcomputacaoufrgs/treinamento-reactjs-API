@@ -25,4 +25,22 @@ public class SVGServiceImpl {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    /*
+    public static ResponseEntity<String> getSVG() {
+        String svg = SvgEnum.ORCA.getValue();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.valueOf("image/enumerable+xml"));
+        return new ResponseEntity<>(svg, headers, HttpStatus.OK);
+    }
+
+
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
+
+    @GetMapping("/greeting")
+    public @ResponseBody Greeting greeting() throws IOException {
+        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+    }
+    */
 }
